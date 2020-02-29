@@ -10,7 +10,7 @@ import java.io.IOException;
  * @Author <a href="zhanghui.wj@cai-inc.com">无忌</a>
  * @Date 2020/2/27 9:45 上午 Copyright (c) 2016 政采云有限公司
  */
-public class Worker implements Runnable {
+public class Worker {
 
     /**
      * 工号
@@ -32,13 +32,8 @@ public class Worker implements Runnable {
 
     }
 
-    @Override
-    public void run() {
-        try {
-            punchIn(workRecord);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String getStaffId() {
+        return staffId;
     }
 
     /**

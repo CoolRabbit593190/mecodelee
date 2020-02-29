@@ -6,6 +6,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
+ * 排班测试类
+ *
  * @Author <a href="zhanghui.wj@cai-inc.com">无忌</a>
  * @Date 2020/2/27 12:04 下午 Copyright (c) 2016 政采云有限公司
  */
@@ -13,28 +15,40 @@ public class Company {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("工作计划");
-        int workDay = sc.nextInt();
-        System.out.println("工作天数");
-        int workDay = sc.nextInt();
-        System.out.println("签到文件路径:");
+        System.out.println("排班计划:");
+        String planCode = sc.nextLine();
+        System.out.println("排班天数:");
+        String workDay = sc.nextLine();
+        System.out.println("排班表文件存放路径:");
         String path = sc.nextLine();
-        File file = new File(path);
-        Worker designer = new Worker(file, "1");
-        Worker engineer = new Worker(file, "2");
-        Worker test = new Worker(file, "3");
-        WorkPlan workPlanA = new WorkPlan(file, designer, engineer, test);
-        WorkPlan workPlanB = new WorkPlan(file, designer, engineer, test);
-        WorkPlan workPlanC = new WorkPlan(file, designer, engineer, test);
-        ExecutorService pool = Executors.newCachedThreadPool();
-        for (int i = 0; i < workDay; i++) {
-            pool.execute(() -> workPlanA.workAtMorning());
-            pool.execute(() -> workPlanA.workAtAfternoon());
-            pool.execute(() -> workPlanA.workAtNight());
-        }
-
-
+        File workPlanSheet = new File(path);
+        WorkPlan workPlan = WorkPlanFactory.producePlan(planCode, Integer.parseInt(workDay), workPlanSheet, "1", "2",
+            "3");
+        writePlan(workPlan);
     }
 
-
+    private static void writePlan(WorkPlan workPlan) {
+        ExecutorService service = Executors.newFixedThreadPool(3);
+        service.execute(() -> {
+            workPlan.planWorkAtMorning();
+        });
+        service.execute(() -> {
+            workPlan.planWorkAtAfternoon();
+        });
+        service.execute(() -> {
+            workPlan.planWorkAtNight();
+        });
+//        new Thread(() -> workPlan.planWorkAtMorning()).start();
+//        new Thread(() -> workPlan.planWorkAtAfternoon()).start();
+//        new Thread(() -> workPlan.planWorkAtNight()).start();
+        service.shutdown();
+//        for (; ; ) {
+//            service.shutdown();
+//            if (service.isShutdown()) {
+//                break;
+//            }
+//        }
+    }
 }
+
+
