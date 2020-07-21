@@ -113,8 +113,8 @@ public class Solution2 {
 
 
 
-//    public static void main(String[] args) {
-//        int[] hello = {7, 5, 6, 4};
-//        System.out.println(new Solution2().reversePairs2(hello));
-//    }
+    public static void main(String[] args) {
+        int[] hello = {7, 5, 6, 4};
+        System.out.println(new Solution2().reversePairs2(hello));
+    }
 }

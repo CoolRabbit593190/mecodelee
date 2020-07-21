@@ -6,6 +6,7 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
@@ -22,6 +23,8 @@ public class Play4 {
         long sourceDuration = System.nanoTime();
         System.out.println(sourceDuration);
         System.out.println(MILLISECONDS.convert(sourceDuration, NANOSECONDS));
+
+        Vector<Integer> v = new Vector<>();
     }
 
 }
