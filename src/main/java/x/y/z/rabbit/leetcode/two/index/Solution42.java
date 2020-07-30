@@ -39,8 +39,4 @@ public class Solution42 {
 
     }
 
-    public static void main(String[] args) {
-        int[] ints = {2, 0, 2};
-        System.out.println(new Solution42().trap(ints));
-    }
 }
